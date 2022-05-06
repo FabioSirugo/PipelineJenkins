@@ -16,10 +16,10 @@ pipeline{
             }
             post{
                 always{
-                    echo "Sono nel ramo Always di post build"
+                    echo "I'm in post -> always -> Build"
                 }
                 failure{
-                    echo "Build fallito"
+                    echo "Build failed"
                     //mail to: team@example.com, subject: 'Fase di building fallita'
                 }
             }
@@ -31,10 +31,10 @@ pipeline{
             }
             post{
                 always{ 
-                    echo "Sono nel ramo Always di post Test"
+                    echo "I'm in post -> always -> Test"
                 }
                 failure{
-                    echo "Test fallito"
+                    echo "Test failed"
                     //mail to: team@example.com, subject: 'Fase di test fallita'
                 }
             }
