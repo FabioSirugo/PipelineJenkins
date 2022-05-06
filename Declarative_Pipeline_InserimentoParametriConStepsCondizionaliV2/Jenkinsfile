@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+        stages {
+            stage('Parameters'){
+                steps {
+                    script {
+                    properties([
+                            parameters([
+                                [$class: 'ChoiceParameter', 
+                                    choiceType: 'PT_SINGLE_SELECT', 
+                                    description: 'Select Stages to execute', 
+                                    filterLength: 3, 
+                                    filterable: false, 
+                                    name: 'STAGE', 
+                                    script: [
+                                        $class: 'GroovyScript', 
+                                        fallbackScript: [
+                                            classpath: [], 
+                                            sandbox: false, 
+                                            script: 
+                                                "return['Could not get into the stage']"
+                                        ], 
+                                        script: [
+                                            classpath: [], 
+                                            sandbox: false, 
+                                            script: 
+                                                "return['Build','Test','Deploy']"
+                                        ]
+                                    ]
+                                ]
+                            ])
+                        ])
+                    }
+                }
+            }
+            stage('Build'){
+                when {
+                    expression { 
+                        return params.STAGE == 'Build'
+                    }
+                }
+                steps {
+                    echo "I'm building"
+                }
+            }
+            stage('Test'){
+                when {
+                    expression { 
+                        return params.STAGE == 'Test'
+                    }
+                }
+                steps {
+                    echo "I'm testing"
+                }
+            }
+            stage('Deploy'){
+                when {
+                    expression { 
+                        return params.STAGE == 'Deploy'
+                    }
+                }
+                steps {
+                    echo "I'm deploying"
+                }
+            }
+        }
+    } 
