@@ -41,6 +41,7 @@ pipeline{
         }
         stage('Deploy'){
             steps{
+                echo "I'll never get into this stage"
                 echo "I'm deploying"
             }
         }
