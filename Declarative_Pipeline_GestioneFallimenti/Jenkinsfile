@@ -20,7 +20,7 @@ pipeline{
                 }
                 failure{
                     echo "Build failed"
-                    //mail to: team@example.com, subject: 'Fase di building fallita'
+                    //Un idea potrebbe essere quella di notificare via email l'esito del fallimento mail to: team@example.com, subject: 'Fase di building fallita'
                 }
             }
         }
