@@ -1,0 +1,48 @@
+/*
+    Questa Pipeline ha lo scopo di generare un errore in fase di testing e gestire tale errore. 
+    Avvenuto l'errore voglio che l'esecuzione salti il passo di deply.
+    La condizione post può essere utilizzata alla fine degli stages oppure alla fine dei vari steps, in questo caso faccio
+    un controllo alla fine di ogni steps all'interno di ogni stage.
+
+*/
+
+
+pipeline{
+    agent any
+    stages{
+        stage('Build'){
+            steps{
+                echo "I'm building"
+            }
+            post{
+                always{
+                    echo "Sono nel ramo Always di post build"
+                }
+                failure{
+                    echo "Build fallito"
+                    //mail to: team@example.com, subject: 'Fase di building fallita'
+                }
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "I'm testing"
+                sh 'make check'
+            }
+            post{
+                always{ 
+                    echo "Sono nel ramo Always di post Test"
+                }
+                failure{
+                    echo "Test fallito"
+                    //mail to: team@example.com, subject: 'Fase di test fallita'
+                }
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo "I'm deploying"
+            }
+        }
+    }
+}
