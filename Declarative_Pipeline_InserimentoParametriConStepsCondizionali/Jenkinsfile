@@ -1,0 +1,49 @@
+/*
+   Questa Pipeline ha lo scopo di eseguire degli steps condizionali.
+   Prima di avviare la Pipeline verrà richiesto di inserire bt nel caso in cui si vuole effettuare build e test, d nel caso in cui si vuole effettuare il deploy
+   Per intefaccia migliore utilizzare plugin Jenkins https://plugins.jenkins.io/uno-choice/
+*/
+
+
+pipeline{
+    agent any
+    parameters{
+        string(name: 'Steps_To_Execute', defaultValue: 'bt', description: 'Insert bt to Build and Test, Insert d to deploy')
+    }
+
+    stages{
+        stage('Build'){
+            when {
+                //se la stringa è bt allora esegui steps altrimenti salta allo stage successivo
+                expression { 
+                   return params.Steps_To_Execute == 'bt'
+                }
+            }
+            steps {
+                echo "I'm building"
+                }
+        }
+        stage('Test'){
+            when {
+                //se la stringa è bt allora esegui steps altrimenti salta allo stage successivo
+                expression { 
+                   return params.Steps_To_Execute == 'bt'
+                }
+            }
+            steps{
+                echo "I'm testing"
+            }
+        }
+        stage('Deploy'){
+            when {
+                //se la stringa è d allora esegui steps altrimenti salta allo stage successivo
+                expression { 
+                   return params.Steps_To_Execute == 'd'
+                }
+            }
+            steps{
+                echo "I'm deploying"
+            }
+        }
+    }
+}
