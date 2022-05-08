@@ -15,7 +15,7 @@ pipeline {
       agent any
       when {
         beforeInput true
-        branch 'master'
+        branch 'main'
       }
       input {
         message "Inserisci nome"
