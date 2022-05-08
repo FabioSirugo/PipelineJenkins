@@ -28,7 +28,7 @@ pipeline {
       steps {
         echo "Ciao , $FIRST_NAME la data di oggi è"
         sh '''
-          date -d
+          date
         '''
       }
     }
