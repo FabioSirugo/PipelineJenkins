@@ -1,0 +1,35 @@
+/*
+Note Importanti: quando si utilizza input ok submit bisogna fare in modo che venga utilizzato in agent none altrimenti andiamo a
+rubare degli agent che potrebbero essere utilizzati in altri job
+
+In questo caso utilizzo beforeinput che mi permette di dire ricevi in input se e solo se condizione.
+In questo caso la condizione è "mi trovo nel branch main"
+
+
+*/
+
+pipeline {
+  agent none
+  stages {
+    stage('input') {
+      agent any
+      when {
+        beforeInput true
+        branch 'main'
+      }
+      input {
+        message "Inserisci nome"
+        ok "Submit"
+        parameters {
+          string(defaultValue: 'Fabio', name: 'FIRST_NAME', trim: true) 
+        }
+      }
+      steps {
+        echo "Ciao , $FIRST_NAME la data di oggi è"
+        sh '''
+          date -d
+        '''
+      }
+    }
+  }
+}
