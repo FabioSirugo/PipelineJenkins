@@ -5,6 +5,15 @@ rubare degli agent che potrebbero essere utilizzati in altri job
 In questo caso utilizzo beforeinput che mi permette di dire ricevi in input se e solo se condizione.
 In questo caso la condizione è "mi trovo nel branch main"
 
+Perchè usare input e non solo parameters?
+parameters mi chiederà sempre di inserire i valori prima di avviare la pipeline.
+Questo significa che non ho controllo sullo stato del sistema e devo decidere tutto prima di avviare la Pipeline.
+
+Utilizzando input ho la possibilità di fare delle scelte mentre la pipeline è in esecuzione in modo più dinamico.
+In questo esempio viene data la possibilità all'utente di inizializzare la variabile FIRST_NAME oppure 
+di abortire l'intera operazione. Idealmente quindi in uno scenario più complesso potrei stampare in output dei valori
+ed in funzione di quei valori potrei scegliere se proseguire oppure fermare tutto.
+
 
 */
 
